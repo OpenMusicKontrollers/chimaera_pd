@@ -1,0 +1,61 @@
+#N canvas 591 203 928 738 10;
+#X obj 229 175 packOSC;
+#X msg 92 134 disconnect;
+#X msg 44 114 connect chimaera.local 4444;
+#X obj 178 211 udpsend;
+#X obj 720 494 udpreceive 4444;
+#X obj 747 530 unpackOSC;
+#X obj 722 559 routeOSC /success /fail;
+#X msg 393 299 send /sensors/number 13;
+#X obj 692 597 print success;
+#X obj 824 596 print fail;
+#X obj 407 496 tcpreceive 3333;
+#X obj 437 536 unpackOSCstream;
+#X msg 284 65 send /engines/mode 13 osc.slip.tcp;
+#X msg 304 89 send /engines/enabled 13 1;
+#X msg 269 38 send /engines/enabled 13 0;
+#X text 42 87 STEP 1: connect to Chimaera;
+#X text 267 11 STEP 2: configure Chimaera;
+#X text 696 461 Configuration replies;
+#X text 385 460 OSCMIDI to RAW MIDI conversion;
+#X text 727 679 Copyright (c) 2014 Hanspeter Portner (dev@open-music-kontrollers.ch)Released
+under the zlib license.;
+#X msg 340 136 sendtyped /engines/custom/reset i 13;
+#X msg 324 114 send /engines/custom/enabled 13 1;
+#X obj 376 621 noteout;
+#X obj 444 621 bendout;
+#X obj 507 619 ctlout;
+#X msg 359 187 sendtyped /engines/custom/append isss 13 off /noteout
+i($b0x7f&)i(0)i($g);
+#X msg 351 155 sendtyped /engines/custom/append isss 13 on /notout
+i($b0x7f&)i(0x7f)i($g);
+#X msg 369 221 sendtyped /engines/custom/append isss 13 set /bendout
+f($x0x7f*)i($g);
+#X msg 380 257 sendtyped /engines/custom/append isss 13 set /ctlout
+f($z0x7f*)i(7)i($g);
+#X obj 204 580 midiin;
+#X obj 188 611 print;
+#X obj 411 582 routeOSC /noteout /bendout /ctlout;
+#X connect 0 0 3 0;
+#X connect 1 0 3 0;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 0;
+#X connect 6 1 9 0;
+#X connect 7 0 0 0;
+#X connect 10 0 11 0;
+#X connect 11 0 31 0;
+#X connect 12 0 0 0;
+#X connect 13 0 0 0;
+#X connect 14 0 0 0;
+#X connect 20 0 0 0;
+#X connect 21 0 0 0;
+#X connect 25 0 0 0;
+#X connect 26 0 0 0;
+#X connect 27 0 0 0;
+#X connect 28 0 0 0;
+#X connect 29 0 30 0;
+#X connect 31 0 22 0;
+#X connect 31 1 23 0;
+#X connect 31 2 24 0;
