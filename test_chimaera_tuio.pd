@@ -1,0 +1,51 @@
+#N canvas 495 9 936 821 10;
+#X obj 231 237 packOSC;
+#X msg 66 123 disconnect;
+#X msg 40 103 connect chimaera.local 4444;
+#X obj 136 293 udpsend;
+#X obj 706 62 udpreceive 4444;
+#X obj 707 92 unpackOSC;
+#X obj 706 129 routeOSC /success /fail;
+#X msg 253 155 send /sensors/number 13;
+#X obj 672 189 print success;
+#X obj 810 182 print fail;
+#X msg 228 83 send /engines/enabled 13 1;
+#X msg 187 34 send /engines/enabled 13 0;
+#X msg 266 201 sendtyped /sensors/group/attributes/1 iffiii 13 0 1
+1 0 0;
+#X msg 262 176 sendtyped /sensors/group/attributes/0 iffiii 13 0 1
+0 1 0;
+#X text 187 12 STEP 2: Configure Chimaera;
+#X text 17 61 STEP 1: Connect to Chimaera;
+#X text 128 385 Receive Chimaera Event Data;
+#X text 681 23 Receive Configuration Replies;
+#X text 686 757 Copyright (c) 2014 Hanspeter Portner(dev@open-music-kontrollers.ch)Released
+under the zlib licence.;
+#X msg 204 49 send /engines/server 13 0;
+#X obj 162 411 TuioClient 3333;
+#X obj 163 445 print;
+#X obj 250 444 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 210 65 send /engines/mode 13 osc.udp;
+#X msg 240 108 send /engines/reset 13;
+#X msg 246 131 send /engines/tuio1/enabled 13 1;
+#X msg 342 282 send /sensors/rate 13 2000;
+#X connect 0 0 3 0;
+#X connect 1 0 3 0;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 0;
+#X connect 6 1 9 0;
+#X connect 7 0 0 0;
+#X connect 10 0 0 0;
+#X connect 11 0 0 0;
+#X connect 12 0 0 0;
+#X connect 13 0 0 0;
+#X connect 19 0 0 0;
+#X connect 20 0 21 0;
+#X connect 20 1 22 0;
+#X connect 23 0 0 0;
+#X connect 24 0 0 0;
+#X connect 25 0 0 0;
+#X connect 26 0 0 0;

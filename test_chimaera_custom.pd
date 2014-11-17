@@ -1,4 +1,4 @@
-#N canvas 591 203 928 738 10;
+#N canvas 592 204 928 738 10;
 #X obj 229 175 packOSC;
 #X msg 92 134 disconnect;
 #X msg 44 114 connect chimaera.local 4444;
@@ -13,7 +13,7 @@
 #X obj 437 536 unpackOSCstream;
 #X msg 284 65 send /engines/mode 13 osc.slip.tcp;
 #X msg 304 89 send /engines/enabled 13 1;
-#X msg 269 38 send /engines/enabled 13 0;
+#X msg 261 34 send /engines/enabled 13 0;
 #X text 42 87 STEP 1: connect to Chimaera;
 #X text 267 11 STEP 2: configure Chimaera;
 #X text 696 461 Configuration replies;
@@ -36,6 +36,7 @@ f($z0x7f*)i(7)i($g);
 #X obj 204 580 midiin;
 #X obj 188 611 print;
 #X obj 411 582 routeOSC /noteout /bendout /ctlout;
+#X msg 272 47 send /engines/server 13 0;
 #X connect 0 0 3 0;
 #X connect 1 0 3 0;
 #X connect 2 0 3 0;
@@ -59,3 +60,4 @@ f($z0x7f*)i(7)i($g);
 #X connect 31 0 22 0;
 #X connect 31 1 23 0;
 #X connect 31 2 24 0;
+#X connect 32 0 0 0;
