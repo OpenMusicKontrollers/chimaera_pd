@@ -1,63 +1,97 @@
-#N canvas 592 204 928 738 10;
-#X obj 229 175 packOSC;
-#X msg 92 134 disconnect;
-#X msg 44 114 connect chimaera.local 4444;
-#X obj 178 211 udpsend;
-#X obj 720 494 udpreceive 4444;
-#X obj 747 530 unpackOSC;
-#X obj 722 559 routeOSC /success /fail;
-#X msg 393 299 send /sensors/number 13;
-#X obj 692 597 print success;
-#X obj 824 596 print fail;
-#X obj 407 496 tcpreceive 3333;
-#X obj 437 536 unpackOSCstream;
-#X msg 284 65 send /engines/mode 13 osc.slip.tcp;
-#X msg 304 89 send /engines/enabled 13 1;
-#X msg 261 34 send /engines/enabled 13 0;
-#X text 42 87 STEP 1: connect to Chimaera;
-#X text 267 11 STEP 2: configure Chimaera;
-#X text 696 461 Configuration replies;
-#X text 385 460 OSCMIDI to RAW MIDI conversion;
-#X text 727 679 Copyright (c) 2014 Hanspeter Portner (dev@open-music-kontrollers.ch)Released
+#N canvas 488 2 1066 571 10;
+#X declare -lib mrpeach;
+#X obj 227 355 unpackOSCstream;
+#X text 1000 523 Copyright (c) 2014 Hanspeter Portner (dev@open-music-kontrollers.ch)Released
 under the zlib license.;
-#X msg 340 136 sendtyped /engines/custom/reset i 13;
-#X msg 324 114 send /engines/custom/enabled 13 1;
-#X obj 376 621 noteout;
-#X obj 444 621 bendout;
-#X obj 507 619 ctlout;
-#X msg 359 187 sendtyped /engines/custom/append isss 13 off /noteout
+#X msg 841 207 sendtyped /engines/custom/reset i 13;
+#X obj 166 440 noteout;
+#X obj 234 440 bendout;
+#X obj 297 438 ctlout;
+#X msg 840 262 sendtyped /engines/custom/append isss 13 off /noteout
 i($b0x7f&)i(0)i($g);
-#X msg 351 155 sendtyped /engines/custom/append isss 13 on /notout
-i($b0x7f&)i(0x7f)i($g);
-#X msg 369 221 sendtyped /engines/custom/append isss 13 set /bendout
+#X msg 840 294 sendtyped /engines/custom/append isss 13 set /bendout
 f($x0x7f*)i($g);
-#X msg 380 257 sendtyped /engines/custom/append isss 13 set /ctlout
+#X msg 841 328 sendtyped /engines/custom/append isss 13 set /ctlout
 f($z0x7f*)i(7)i($g);
-#X obj 204 580 midiin;
-#X obj 188 611 print;
-#X obj 411 582 routeOSC /noteout /bendout /ctlout;
-#X msg 272 47 send /engines/server 13 0;
-#X connect 0 0 3 0;
-#X connect 1 0 3 0;
-#X connect 2 0 3 0;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 6 0 8 0;
-#X connect 6 1 9 0;
-#X connect 7 0 0 0;
-#X connect 10 0 11 0;
-#X connect 11 0 31 0;
-#X connect 12 0 0 0;
-#X connect 13 0 0 0;
-#X connect 14 0 0 0;
-#X connect 20 0 0 0;
-#X connect 21 0 0 0;
-#X connect 25 0 0 0;
-#X connect 26 0 0 0;
-#X connect 27 0 0 0;
-#X connect 28 0 0 0;
-#X connect 29 0 30 0;
-#X connect 31 0 22 0;
-#X connect 31 1 23 0;
-#X connect 31 2 24 0;
-#X connect 32 0 0 0;
+#X obj 201 401 routeOSC /noteout /bendout /ctlout;
+#X msg 840 228 sendtyped /engines/custom/append isss 13 on /noteout
+i($b0x7f&)i(0x7f)i($g);
+#X obj 522 244 list split 1;
+#X obj 588 273 list trim;
+#X floatatom 582 323 5 0 0 0 - - -, f 5;
+#X obj 547 298 route /sensors/number;
+#X msg 586 86 disconnect;
+#X msg 585 62 connect chimaera.local 4444;
+#X obj 552 189 routeOSC /success /fail;
+#X obj 572 223 print success;
+#X obj 663 222 print fail;
+#X msg 843 406 sendtyped /sensors/group/attributes/1 iffiii 13 0 1
+1 0 0;
+#X msg 842 385 sendtyped /sensors/group/attributes/0 iffiii 13 0 1
+0 1 0;
+#X obj 171 6 import mrpeach;
+#X msg 221 69 connect chimaera.local 4444;
+#X msg 222 130 disconnect;
+#X obj 172 159 udpsend;
+#X obj 548 113 tcpclient;
+#X obj 572 162 unpackOSCstream;
+#X obj 713 130 packOSCstream;
+#X obj 221 99 packOSC;
+#X msg 275 99 sendtyped /config/mode is 13 osc.slip.tcp;
+#X obj 601 142 tgl 15 0 empty empty connected 17 7 0 10 -258113 -1
+-1 0 1;
+#X text 171 40 STEP 1: Put Chimaera Config Socket into TCP mode;
+#X text 547 37 STEP 2: Connect to Chimaera Config Socket;
+#X text 840 37 STEP 3: Configure Chimaera Output for UDP and TUIO1
+;
+#X msg 840 59 sendtyped /engines/enabled ii 13 0;
+#X msg 839 82 sendtyped /engines/server ii 13 0;
+#X msg 839 123 sendtyped /engines/address is 13 melamori.local:3333
+;
+#X msg 839 142 sendtyped /engines/enabled ii 13 1;
+#X msg 841 163 sendtyped /engines/reset i 13;
+#X msg 840 364 sendtyped /sensors/number i 13;
+#X msg 845 426 sendtyped /sensors/rate ii 13 2000;
+#X text 172 292 STEP 4: Receive Chimaera Event Data;
+#X msg 839 104 sendtyped /engines/mode is 13 osc.slip.tcp;
+#X obj 197 315 tcpreceive 3333;
+#X msg 841 185 sendtyped /engines/custom/enabled ii 13 1;
+#X msg 815 447 sendtyped /config/mode is 13 osc.udp;
+#X connect 0 0 9 0;
+#X connect 2 0 28 0;
+#X connect 6 0 28 0;
+#X connect 7 0 28 0;
+#X connect 8 0 28 0;
+#X connect 9 0 3 0;
+#X connect 9 1 4 0;
+#X connect 9 2 5 0;
+#X connect 10 0 28 0;
+#X connect 11 1 12 0;
+#X connect 12 0 14 0;
+#X connect 14 0 13 0;
+#X connect 15 0 26 0;
+#X connect 16 0 26 0;
+#X connect 17 0 18 0;
+#X connect 17 0 11 0;
+#X connect 17 1 19 0;
+#X connect 20 0 28 0;
+#X connect 21 0 28 0;
+#X connect 23 0 25 0;
+#X connect 24 0 25 0;
+#X connect 26 0 27 0;
+#X connect 26 2 31 0;
+#X connect 27 0 17 0;
+#X connect 28 0 26 0;
+#X connect 29 0 25 0;
+#X connect 30 0 29 0;
+#X connect 35 0 28 0;
+#X connect 36 0 28 0;
+#X connect 37 0 28 0;
+#X connect 38 0 28 0;
+#X connect 39 0 28 0;
+#X connect 40 0 28 0;
+#X connect 41 0 28 0;
+#X connect 43 0 28 0;
+#X connect 44 0 0 0;
+#X connect 45 0 28 0;
+#X connect 46 0 28 0;

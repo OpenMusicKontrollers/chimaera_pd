@@ -1,51 +1,74 @@
-#N canvas 495 9 936 821 10;
-#X obj 231 237 packOSC;
-#X msg 66 123 disconnect;
-#X msg 40 103 connect chimaera.local 4444;
-#X obj 136 293 udpsend;
-#X obj 706 62 udpreceive 4444;
-#X obj 707 92 unpackOSC;
-#X obj 706 129 routeOSC /success /fail;
-#X msg 253 155 send /sensors/number 13;
-#X obj 672 189 print success;
-#X obj 810 182 print fail;
-#X msg 228 83 send /engines/enabled 13 1;
-#X msg 187 34 send /engines/enabled 13 0;
-#X msg 266 201 sendtyped /sensors/group/attributes/1 iffiii 13 0 1
+#N canvas 488 2 1054 552 10;
+#X declare -lib mrpeach;
+#X msg 411 83 disconnect;
+#X msg 410 59 connect chimaera.local 4444;
+#X obj 377 186 routeOSC /success /fail;
+#X obj 397 220 print success;
+#X obj 488 219 print fail;
+#X msg 672 241 sendtyped /sensors/group/attributes/1 iffiii 13 0 1
 1 0 0;
-#X msg 262 176 sendtyped /sensors/group/attributes/0 iffiii 13 0 1
+#X msg 671 220 sendtyped /sensors/group/attributes/0 iffiii 13 0 1
 0 1 0;
-#X text 187 12 STEP 2: Configure Chimaera;
-#X text 17 61 STEP 1: Connect to Chimaera;
-#X text 128 385 Receive Chimaera Event Data;
-#X text 681 23 Receive Configuration Replies;
-#X text 686 757 Copyright (c) 2014 Hanspeter Portner(dev@open-music-kontrollers.ch)Released
+#X text 812 501 Copyright (c) 2014 Hanspeter Portner(dev@open-music-kontrollers.ch)Released
 under the zlib licence.;
-#X msg 204 49 send /engines/server 13 0;
-#X obj 162 411 TuioClient 3333;
-#X obj 163 445 print;
-#X obj 250 444 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X msg 210 65 send /engines/mode 13 osc.udp;
-#X msg 240 108 send /engines/reset 13;
-#X msg 246 131 send /engines/tuio1/enabled 13 1;
-#X msg 342 282 send /sensors/rate 13 2000;
-#X connect 0 0 3 0;
-#X connect 1 0 3 0;
+#X obj -6 340 TuioClient 3333;
+#X obj 94 341 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj -4 3 import mrpeach;
+#X msg 46 66 connect chimaera.local 4444;
+#X msg 47 127 disconnect;
+#X obj -3 156 udpsend;
+#X obj 373 110 tcpclient;
+#X obj 397 159 unpackOSCstream;
+#X obj 538 127 packOSCstream;
+#X obj 46 96 packOSC;
+#X msg 100 96 sendtyped /config/mode is 13 osc.slip.tcp;
+#X obj 426 139 tgl 15 0 empty empty connected 17 7 0 10 -258113 -1
+-1 0 1;
+#X text -4 37 STEP 1: Put Chimaera Config Socket into TCP mode;
+#X text 372 34 STEP 2: Connect to Chimaera Config Socket;
+#X text 665 34 STEP 3: Configure Chimaera Output for UDP and TUIO1
+;
+#X text -6 316 STEP 4: Receive Chimaera Event Data;
+#X msg 665 56 sendtyped /engines/enabled ii 13 0;
+#X msg 664 79 sendtyped /engines/server ii 13 0;
+#X msg 664 101 sendtyped /engines/mode is 13 osc.udp;
+#X msg 664 120 sendtyped /engines/address is 13 melamori.local:3333
+;
+#X msg 664 139 sendtyped /engines/enabled ii 13 1;
+#X msg 666 160 sendtyped /engines/reset i 13;
+#X msg 667 180 sendtyped /engines/tuio1/enabled ii 13 1;
+#X msg 669 199 sendtyped /sensors/number i 13;
+#X msg 674 261 sendtyped /sensors/rate ii 13 2000;
+#X obj 24 364 route addObject updateObject removeObject;
+#X obj -6 403 print;
+#X msg 644 282 sendtyped /config/mode is 13 osc.udp;
+#X connect 0 0 14 0;
+#X connect 1 0 14 0;
 #X connect 2 0 3 0;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 6 0 8 0;
-#X connect 6 1 9 0;
-#X connect 7 0 0 0;
-#X connect 10 0 0 0;
-#X connect 11 0 0 0;
-#X connect 12 0 0 0;
-#X connect 13 0 0 0;
-#X connect 19 0 0 0;
-#X connect 20 0 21 0;
-#X connect 20 1 22 0;
-#X connect 23 0 0 0;
-#X connect 24 0 0 0;
-#X connect 25 0 0 0;
-#X connect 26 0 0 0;
+#X connect 2 1 4 0;
+#X connect 5 0 16 0;
+#X connect 6 0 16 0;
+#X connect 8 0 33 0;
+#X connect 8 1 9 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 14 0 15 0;
+#X connect 14 2 19 0;
+#X connect 15 0 2 0;
+#X connect 16 0 14 0;
+#X connect 17 0 13 0;
+#X connect 18 0 17 0;
+#X connect 24 0 16 0;
+#X connect 25 0 16 0;
+#X connect 26 0 16 0;
+#X connect 27 0 16 0;
+#X connect 28 0 16 0;
+#X connect 29 0 16 0;
+#X connect 30 0 16 0;
+#X connect 31 0 16 0;
+#X connect 32 0 16 0;
+#X connect 33 0 34 0;
+#X connect 33 1 34 0;
+#X connect 33 2 34 0;
+#X connect 35 0 16 0;
