@@ -1,4 +1,4 @@
-#N canvas 477 4 1062 602 10;
+#N canvas 857 1 1062 1013 10;
 #X declare -lib mrpeach;
 #X obj 21 393 routeOSC /midi;
 #N canvas 1350 457 570 554 oscmidi2rawmidi 0;
@@ -57,7 +57,7 @@
 #X connect 27 0 20 0;
 #X connect 28 0 23 0;
 #X restore 39 433 pd oscmidi2rawmidi;
-#X text 700 529 Copyright (c) 2014 Hanspeter Portner (dev@open-music-kontrollers.ch)Released
+#X text 724 939 Copyright (c) 2014 Hanspeter Portner (dev@open-music-kontrollers.ch)Released
 under the zlib license.;
 #X msg 687 205 sendtyped /engines/oscmidi/enabled ii 13 1;
 #X msg 687 227 sendtyped /engines/oscmidi/path is 13 /midi;
@@ -71,10 +71,6 @@ under the zlib license.;
 #X obj 402 191 routeOSC /success /fail;
 #X obj 422 225 print success;
 #X obj 513 224 print fail;
-#X msg 693 408 sendtyped /sensors/group/attributes/1 iffiii 13 0 1
-1 0 0;
-#X msg 692 387 sendtyped /sensors/group/attributes/0 iffiii 13 0 1
-0 1 0;
 #X obj 21 8 import mrpeach;
 #X msg 71 71 connect chimaera.local 4444;
 #X msg 72 132 disconnect;
@@ -96,52 +92,94 @@ under the zlib license.;
 ;
 #X msg 689 144 sendtyped /engines/enabled ii 13 1;
 #X msg 691 165 sendtyped /engines/reset i 13;
-#X msg 690 366 sendtyped /sensors/number i 13;
-#X msg 695 428 sendtyped /sensors/rate ii 13 2000;
+#X msg 691 837 sendtyped /sensors/number i 13;
+#X msg 680 879 sendtyped /sensors/rate ii 13 2000;
 #X text 22 294 STEP 4: Receive Chimaera Event Data;
 #X msg 689 106 sendtyped /engines/mode is 13 osc.slip.tcp;
 #X obj 21 319 tcpreceive 3333;
 #X obj 51 359 unpackOSCstream;
 #X msg 690 266 sendtyped /engines/oscmidi/multi ii 13 0;
-#X msg 690 286 sendtyped /engines/oscmidi/attributes/0 isffi 13 control_change
-20.833 53.33 7;
-#X msg 691 326 sendtyped /engines/oscmidi/attributes/1 isffi 13 control_change
-20.833 53.33 7;
-#X msg 665 449 sendtyped /config/mode is 13 osc.udp;
+#X msg 650 900 sendtyped /config/mode is 13 osc.udp;
+#X msg 694 597 sendtyped /sensors/group/attributes/0/min if 13 0;
+#X msg 694 620 sendtyped /sensors/group/attributes/0/max if 13 1;
+#X msg 694 643 sendtyped /sensors/group/attributes/0/north ii 13 0
+;
+#X msg 694 741 sendtyped /sensors/group/attributes/1/max if 13 1;
+#X msg 694 764 sendtyped /sensors/group/attributes/1/north ii 13 1
+;
+#X msg 694 717 sendtyped /sensors/group/attributes/1/min if 13 0;
+#X msg 694 666 sendtyped /sensors/group/attributes/0/south ii 13 1
+;
+#X msg 694 689 sendtyped /sensors/group/attributes/0/scale ii 13 0
+;
+#X msg 694 787 sendtyped /sensors/group/attributes/1/south ii 13 0
+;
+#X msg 694 810 sendtyped /sensors/group/attributes/1/scale ii 13 0
+;
+#X msg 692 308 sendtyped /engines/oscmidi/attributes/0/mapping is 13
+control_change;
+#X msg 692 346 sendtyped /engines/oscmidi/attributes/0/offset if 13
+20.833;
+#X msg 692 372 sendtyped /engines/oscmidi/attributes/0/range if 13
+53.33;
+#X msg 692 396 sendtyped /engines/oscmidi/attributes/0/controller ii
+13 7;
+#X msg 692 436 sendtyped /engines/oscmidi/attributes/1/mapping is 13
+control_change;
+#X msg 692 474 sendtyped /engines/oscmidi/attributes/1/offset if 13
+20.833;
+#X msg 692 500 sendtyped /engines/oscmidi/attributes/1/range if 13
+53.33;
+#X msg 692 524 sendtyped /engines/oscmidi/attributes/1/controller ii
+13 7;
 #X connect 0 0 1 0;
-#X connect 3 0 23 0;
-#X connect 4 0 23 0;
-#X connect 5 0 23 0;
+#X connect 3 0 21 0;
+#X connect 4 0 21 0;
+#X connect 5 0 21 0;
 #X connect 6 1 7 0;
 #X connect 7 0 9 0;
 #X connect 9 0 8 0;
-#X connect 10 0 21 0;
-#X connect 11 0 21 0;
+#X connect 10 0 19 0;
+#X connect 11 0 19 0;
 #X connect 12 0 13 0;
 #X connect 12 0 6 0;
 #X connect 12 1 14 0;
-#X connect 15 0 23 0;
-#X connect 16 0 23 0;
-#X connect 18 0 20 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
 #X connect 19 0 20 0;
-#X connect 21 0 22 0;
-#X connect 21 2 26 0;
-#X connect 22 0 12 0;
-#X connect 23 0 21 0;
-#X connect 24 0 20 0;
-#X connect 25 0 24 0;
-#X connect 30 0 23 0;
-#X connect 31 0 23 0;
-#X connect 32 0 23 0;
-#X connect 33 0 23 0;
-#X connect 34 0 23 0;
-#X connect 35 0 23 0;
-#X connect 36 0 23 0;
-#X connect 38 0 23 0;
-#X connect 39 0 40 0;
-#X connect 40 0 0 0;
-#X connect 40 1 1 1;
-#X connect 41 0 23 0;
-#X connect 42 0 23 0;
-#X connect 43 0 23 0;
-#X connect 44 0 23 0;
+#X connect 19 2 24 0;
+#X connect 20 0 12 0;
+#X connect 21 0 19 0;
+#X connect 22 0 18 0;
+#X connect 23 0 22 0;
+#X connect 28 0 21 0;
+#X connect 29 0 21 0;
+#X connect 30 0 21 0;
+#X connect 31 0 21 0;
+#X connect 32 0 21 0;
+#X connect 33 0 21 0;
+#X connect 34 0 21 0;
+#X connect 36 0 21 0;
+#X connect 37 0 38 0;
+#X connect 38 0 0 0;
+#X connect 38 1 1 1;
+#X connect 39 0 21 0;
+#X connect 40 0 21 0;
+#X connect 41 0 21 0;
+#X connect 42 0 21 0;
+#X connect 43 0 21 0;
+#X connect 44 0 21 0;
+#X connect 45 0 21 0;
+#X connect 46 0 21 0;
+#X connect 47 0 21 0;
+#X connect 48 0 21 0;
+#X connect 49 0 21 0;
+#X connect 50 0 21 0;
+#X connect 51 0 21 0;
+#X connect 52 0 21 0;
+#X connect 53 0 21 0;
+#X connect 54 0 21 0;
+#X connect 55 0 21 0;
+#X connect 56 0 21 0;
+#X connect 57 0 21 0;
+#X connect 58 0 21 0;
